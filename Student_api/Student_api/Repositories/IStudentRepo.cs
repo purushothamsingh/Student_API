@@ -6,5 +6,7 @@ namespace Student_api.Repositories
     {
        Task< List<Students>> GetStudents();
 
+        Task<Students> GetStudentById(Guid studentId);
+      
     }
 }

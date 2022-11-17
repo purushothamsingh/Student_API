@@ -67,5 +67,16 @@ namespace Student_api.Controllers
         }
 
 
+        [HttpGet]
+        [Route("{id:Guid}")]
+
+        public async Task<IActionResult> GetElementById(Guid id)
+        {
+
+             var single_student =await studentRepo.GetStudentById(id);
+
+            return Ok(mapper.Map<Students>(single_student));
+        }
+
     }
 }

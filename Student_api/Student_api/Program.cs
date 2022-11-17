@@ -13,6 +13,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StudentAdminContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Myconn")));
 builder.Services.AddScoped<IStudentRepo, Student>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+builder.Services.AddCors(
+    (options) =>
+    {
+        options.AddPolicy("default", (option) =>
+        {
+            option.AllowAnyMethod().AllowAnyOrigin().AllowAnyOrigin();
+        });
+    }
+    );
 var app = builder.Build();
  
 // Configure the HTTP request pipeline.
@@ -21,9 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("default");
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();
